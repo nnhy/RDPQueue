@@ -7,6 +7,10 @@ namespace RDPQueue
     /// <summary>RDP服务器</summary>
     class RDPServer : ProxyBase<RDPSession>
     {
+        public RDPServer()
+        {
+            ProtocolType = NetType.Tcp;
+        }
     }
 
     class RDPSession : ProxySession<RDPServer, RDPSession>

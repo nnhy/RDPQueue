@@ -33,8 +33,13 @@ namespace RDPQueue
         #endregion
 
         #region 静态方法
-        static ServerItem()
+        /// <summary>队列</summary>
+        public static List<ServerItem> Queue { get; } = new List<ServerItem>();
+
+        public static void Init()
         {
+            Queue.Clear();
+
             var set = Setting.Current;
             // 准备服务器集合
             foreach (var item in set.Servers)
@@ -44,9 +49,6 @@ namespace RDPQueue
                 Queue.Add(rdp);
             }
         }
-
-        /// <summary>队列</summary>
-        public static List<ServerItem> Queue { get; } = new List<ServerItem>();
         #endregion
 
         #region 取还

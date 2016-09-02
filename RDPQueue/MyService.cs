@@ -2,6 +2,7 @@
 using System.Net.Sockets;
 using NewLife;
 using NewLife.Agent;
+using NewLife.Log;
 using NewLife.Threading;
 
 namespace RDPQueue
@@ -19,6 +20,12 @@ namespace RDPQueue
 
         public override void StartWork()
         {
+            // 要求马上重新加载配置
+            Setting.Current = null;
+            var set = Setting.Current;
+
+            // 初始化队列
+            ServerItem.Init();
             if (ServerItem.Queue.Count < 1)
             {
                 WriteLine("没有正确配置远程地址，停止服务");
@@ -27,6 +34,8 @@ namespace RDPQueue
             }
 
             Svr = new RDPServer();
+            Svr.Port = set.Port;
+            if (set.Debug) Svr.Log = XTrace.Log;
             Svr.Start();
 
             _timer = new TimerX(Check, null, 10000, 10000);

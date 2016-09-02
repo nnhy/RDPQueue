@@ -11,6 +11,10 @@ namespace RDPQueue
     [XmlConfigFile("")]
     public class Setting : XmlConfig<Setting>
     {
+        /// <summary>是否调试。默认true</summary>
+        [Description("是否调试。默认true")]
+        public Boolean Debug { get; set; } = true;
+
         /// <summary>本地监听端口。默认3388</summary>
         [Description("本地监听端口。默认3388")]
         public Int32 Port { get; set; } = 3388;
